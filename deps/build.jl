@@ -25,7 +25,7 @@ xerblaname = "../src_alt/xerbla.a"
 @osx_only begin
     libslicotpath = joinpath(lib, "$(libslicot.name).dylib")
     loadflag = "-dylib"
- 
+    libslicotpath = joinpath(lib, "$(libslicot.name).dylib")
 end
 
 
@@ -60,6 +60,18 @@ end
 liblapack = xx(Base.liblapack_name)
 libblas = xx(Base.libblas_name)
 
+libblas = join("/usr/lib/", libblas)
+liblapack = join("/usr/lib/", liblapack)
+
+@osx_only begin
+    julia_usrdir = normpath(JULIA_HOME*"/../") # This is a stopgap, we need a better builtin solution to get the included libraries
+    libdirs = String["$(julia_usrdir)/lib"]
+    libblas = join(libdirs, libblas)
+    liblapack = join(libdirs, liblapack)    
+end
+
+
+
 #Define a template for make.inc.in:
 make_inc =
 """ 
@@ -71,8 +83,8 @@ LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB)
 ARCH     = ar
 ARCHFLAGS= r
 
-BLASLIB     = /usr/lib/$libblas
-LAPACKLIB    = /usr/lib/$liblapack
+BLASLIB     = $libblas
+LAPACKLIB    = $liblapack
 SLICOTLIB    = $libslicotpath 
 ALT_XERBLALIB = $xerblaname
 """
