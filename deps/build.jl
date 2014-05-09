@@ -18,6 +18,16 @@ lib = joinpath(usr, "lib")
 altfildir = joinpath(depsdir, "altfiles")
 builddir = joinpath(depsdir, "src", slicot_unpacked)
 libslicotpath = joinpath(lib, "$(libslicot.name).so")
+loadflag = "-shared"
+xerblaname = "../src_alt/xerbla.a"
+
+# OS X
+@osx_only begin
+    libslicotpath = joinpath(lib, "$(libslicot.name).dylib")
+    loadflag = "-dylib"
+ 
+end
+
 
 # List possible fortran compilers and the corresponding options
 f_compilers = ["gfortran"   "-fPIC -O4";
@@ -53,15 +63,15 @@ make_inc =
 F77      = $F77
 OPTS     = $OPTS
 LOAD     = ld
-LOADFLAGS= -shared
+LOADFLAGS= $loadflag
 LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB)
 ARCH     = ar
-ARCHFLAGS= r
+#ARCHFLAGS= r
 
 BLASLIB     = /usr/lib/$libblas
 LAPACKLIB    = /usr/lib/$liblapack
 SLICOTLIB    = $libslicotpath 
-ALT_XERBLALIB = ../src_alt/xerbla.a
+ALT_XERBLALIB = $xerblaname
 """
 make_inc_path = joinpath(altfildir, "make.inc")
 #Write the make.inc file
