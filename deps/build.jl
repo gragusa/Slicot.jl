@@ -54,6 +54,9 @@ if F77==false
 end
 
 xx(c) = contains(c, ".so") ? c : "$c.so"
+@osx_only begin
+    xx(c) = contains(c, ".dylib") ? c : "$c.dylib"
+end
 liblapack = xx(Base.liblapack_name)
 libblas = xx(Base.libblas_name)
 
@@ -66,7 +69,7 @@ LOAD     = ld
 LOADFLAGS= $loadflag
 LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB)
 ARCH     = ar
-#ARCHFLAGS= r
+ARCHFLAGS= r
 
 BLASLIB     = /usr/lib/$libblas
 LAPACKLIB    = /usr/lib/$liblapack
