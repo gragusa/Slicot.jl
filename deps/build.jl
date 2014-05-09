@@ -60,14 +60,14 @@ end
 liblapack = xx(Base.liblapack_name)
 libblas = xx(Base.libblas_name)
 
-libblas = join("/usr/lib/", libblas)
-liblapack = join("/usr/lib/", liblapack)
+libblas_ = String["/usr/lib/$libblas"][1]
+liblapack_ = String["/usr/lib/$liblapack"][1]
 
 @osx_only begin
     julia_usrdir = normpath(JULIA_HOME*"/../") # This is a stopgap, we need a better builtin solution to get the included libraries
-    libdirs = String["$(julia_usrdir)/lib"]
-    libblas = join(libdirs, libblas)
-    liblapack = join(libdirs, liblapack)    
+    libdirs = String["$(julia_usrdir)lib"][1]
+    libblas = String["$libdirs/$libblas"]
+    liblapack = String["$(libdirs)/$liblapack"][1]
 end
 
 
