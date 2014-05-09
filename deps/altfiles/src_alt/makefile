@@ -5,7 +5,7 @@ DSLSRC = xerbla.o
 all: double
 
 double: $(DSLSRC)
-	$(ARCH) $(ARCHFLAGS) -o xerbla.a $(DSLSRC)
+	$(ARCH) $(ARCHFLAGS) xerbla.a $(DSLSRC)
 
 $(DSLSRC): $(FRC)
 
