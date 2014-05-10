@@ -66,8 +66,8 @@ liblapack_ = String["/usr/lib/$liblapack"][1]
 @osx_only begin
     julia_usrdir = normpath(JULIA_HOME*"/../") # This is a stopgap, we need a better builtin solution to get the included libraries
     libdirs = String["$(julia_usrdir)lib"][1]
-    libblas = String["$libdirs/$libblas"]
-    liblapack = String["$(libdirs)/$liblapack"][1]
+    libblas_ = String["$libdirs/$libblas"]
+    liblapack_ = String["$(libdirs)/$liblapack"][1]
 end
 
 
@@ -83,8 +83,8 @@ LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB)
 ARCH     = ar
 ARCHFLAGS= r
 
-BLASLIB     = $libblas
-LAPACKLIB    = $liblapack
+BLASLIB     = $libblas_
+LAPACKLIB    = $liblapack_
 SLICOTLIB    = $libslicotpath 
 ALT_XERBLALIB = $xerblaname
 """
