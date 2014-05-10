@@ -72,7 +72,7 @@ libfortran_ = String["/usr/lib/libgfortran.so"][1]
     libdirs = String["$(julia_usrdir)lib"][1]
     libblas_ = String["$libdirs/$libblas"][1]
     liblapack_ = String["$(libdirs)/$liblapack"][1]
-    libgfortran_ = String["/usr/local/lib/libgfortran.dylib"][1]
+    libgfortran_ = String["/usr/local/lib/libgfortran.dylib /usr/lib/libc.dylib"][1]
 end
 
 
