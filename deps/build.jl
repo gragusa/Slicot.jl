@@ -62,12 +62,13 @@ libblas = xx(Base.libblas_name)
 
 libblas_ = String["/usr/lib/$libblas"][1]
 liblapack_ = String["/usr/lib/$liblapack"][1]
-
+libfortran_ = String["/usr/lib/libgfortran.so"][1]
 @osx_only begin
     julia_usrdir = normpath(JULIA_HOME*"/../") # This is a stopgap, we need a better builtin solution to get the included libraries
     libdirs = String["$(julia_usrdir)lib"][1]
-    libblas_ = String["$libdirs/$libblas"]
+    libblas_ = String["$libdirs/$libblas"][1]
     liblapack_ = String["$(libdirs)/$liblapack"][1]
+    libgfortran_ = String["/usr/local/lib/libgfortran"][1]
 end
 
 
@@ -79,7 +80,7 @@ F77      = $F77
 OPTS     = $OPTS
 LOAD     = ld
 LOADFLAGS= $loadflag
-LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB)
+LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB) \$(LIBFORTRAN)
 ARCH     = ar
 ARCHFLAGS= r
 
