@@ -1,6 +1,8 @@
 using BinDeps
 @BinDeps.setup
 
+
+
 #Define dependencies. Because blas and lapack are required for julia,
 #only the slicot source needs to be downloaded.
 libslicot = library_dependency("libslicot")
@@ -70,7 +72,7 @@ libfortran_ = String["/usr/lib/libgfortran.so"][1]
     libdirs = String["$(julia_usrdir)lib"][1]
     libblas_ = String["$libdirs/$libblas"][1]
     liblapack_ = String["$(libdirs)/$liblapack"][1]
-    libgfortran_ = String["/usr/local/lib/libgfortran"][1]
+    libgfortran_ = String["/usr/local/lib/libgfortran.dylib"][1]
 end
 
 
