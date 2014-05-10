@@ -64,6 +64,7 @@ libblas = xx(Base.libblas_name)
 libblas_ = String["/usr/lib/$libblas"][1]
 liblapack_ = String["/usr/lib/$liblapack"][1]
 libfortran_ = String["/usr/lib/libgfortran.so"][1]
+
 @osx_only begin
     julia_usrdir = normpath(JULIA_HOME*"/../") # This is a stopgap, we need a better builtin solution to get the included libraries
     libdirs = String["$(julia_usrdir)lib"][1]
@@ -81,13 +82,14 @@ F77      = $F77
 OPTS     = $OPTS
 LOAD     = ld
 LOADFLAGS= $loadflag
-LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB) \$(LIBFORTRAN)
+LOADOPTS = \$(ALT_XERBLALIB) \$(BLASLIB) \$(LAPACKLIB) \$(FORTRANLIB)
 ARCH     = ar
 ARCHFLAGS= r
 
-BLASLIB     = $libblas_
-LAPACKLIB    = $liblapack_
-SLICOTLIB    = $libslicotpath 
+BLASLIB       = $libblas_
+LAPACKLIB     = $liblapack_
+FORTRANLIB    = $libgfortran_ 
+SLICOTLIB     = $libslicotpath 
 ALT_XERBLALIB = $xerblaname
 """
 make_inc_path = joinpath(altfildir, "make.inc")
